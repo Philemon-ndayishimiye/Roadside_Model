@@ -1,3 +1,11 @@
+from predictor.model_loader import load_models
+
+# inside your view function:
+def your_view(request):
+    embed_model, rf_model, le_fault = load_models()  # returns cache instantly
+    # ... rest of your code
+
+
 # views.py
 import os
 import re
