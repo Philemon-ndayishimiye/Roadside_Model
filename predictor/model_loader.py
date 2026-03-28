@@ -1,13 +1,15 @@
 # model_loader.py
 import os
 import pickle
-import tensorflow_hub as hub
 
+# Must be set BEFORE importing tensorflow_hub
 MODELS_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
     'models'
 )
-USE_CACHE_DIR = os.path.join(MODELS_DIR, 'use_cache')
+os.environ['TFHUB_CACHE_DIR'] = os.path.join(MODELS_DIR, 'use_cache')
+
+import tensorflow_hub as hub
 
 _embed_model = None
 _rf_model    = None
@@ -19,10 +21,8 @@ def load_models():
     if _embed_model is not None:
         return _embed_model, _rf_model, _le_fault
 
-    os.makedirs(USE_CACHE_DIR, exist_ok=True)
-    os.environ['TFHUB_CACHE_DIR'] = USE_CACHE_DIR
-
-    print('⏳ Loading Universal Sentence Encoder...')
+    # USE loads from local cache — no download
+    print('⏳ Loading Universal Sentence Encoder from cache...')
     _embed_model = hub.load('https://tfhub.dev/google/universal-sentence-encoder/4')
     print('✅ USE loaded!')
 
