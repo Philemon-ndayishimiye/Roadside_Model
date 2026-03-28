@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.py[cod]
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+*.log
+
+# Environment variables
+.env
+.env.*
+
+# ML Model files — too large for GitHub
+models/*.pkl
+models/*.npy
+models/*.json
+models/*.tflite
+models/*.keras
+
+# Git LFS (not needed anymore)
+.gitattributes
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
