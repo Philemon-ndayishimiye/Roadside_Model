@@ -2,10 +2,10 @@ services:
   - type: web
     name: roadaid-api
     env: python
+    region: oregon # Oregon and Frankfurt have amd64 instances
+    plan: starter # starter plan uses amd64
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn vehicle_api.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.8
       - key: DEBUG
         value: false
