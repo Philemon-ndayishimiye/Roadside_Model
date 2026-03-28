@@ -1,12 +1,3 @@
-from predictor.model_loader import load_models
-
-# inside your view function:
-def your_view(request):
-    embed_model, rf_model, le_fault = load_models()  # returns cache instantly
-    # ... rest of your code
-
-
-# views.py
 import os
 import re
 import numpy as np
@@ -15,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .model_loader import load_models
 
-# ── Load all models once when Django starts ───────────────────
+# Load all models once when Django starts
 embed_model, rf_model, le_fault = load_models()
 
 
@@ -46,7 +37,7 @@ class PredictFaultView(APIView):
 
         try:
             cleaned   = clean_text(symptom)
-            embedding = embed_model([cleaned]).numpy()
+            embedding = embed_model.encode([cleaned], convert_to_numpy=True)  # ← CHANGED
             pred      = rf_model.predict(embedding)[0]
             proba     = rf_model.predict_proba(embedding)[0]
             confidence  = float(proba.max() * 100)
