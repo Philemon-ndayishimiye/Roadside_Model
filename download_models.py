@@ -1,16 +1,12 @@
 # download_models.py
 import os
-os.environ['TFHUB_CACHE_DIR'] = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), 'models', 'use_cache'
-)
-
 from huggingface_hub import hf_hub_download
-import tensorflow_hub as hub
+from sentence_transformers import SentenceTransformer
 
 MODELS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models')
 os.makedirs(MODELS_DIR, exist_ok=True)
 
-REPO_ID = "philemonndayi/Roadaid_model"  # ← your HuggingFace repo
+REPO_ID = "philemonndayi/Roadaid_model"
 
 FILES = [
     'RandomForest_fault_model.pkl',
@@ -28,7 +24,7 @@ for filename in FILES:
     else:
         print(f'✅ {filename} already exists')
 
-# Download and cache USE during build
-print('⏳ Downloading Universal Sentence Encoder...')
-hub.load('https://tfhub.dev/google/universal-sentence-encoder/4')
-print('✅ USE cached!')
+# Cache sentence-transformers model during build
+print('⏳ Downloading sentence-transformers model...')
+SentenceTransformer('paraphrase-mpnet-base-v2')
+print('✅ sentence-transformers model cached!')
