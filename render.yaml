@@ -3,7 +3,7 @@ services:
     name: roadaid-api
     env: python
     region: oregon
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt && python download_models.py
     startCommand: gunicorn vehicle_api.wsgi:application --bind 0.0.0.0:$PORT --timeout 300 --workers 1 --preload
     envVars:
       - key: DEBUG
