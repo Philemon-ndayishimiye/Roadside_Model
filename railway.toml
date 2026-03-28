@@ -1,0 +1,7 @@
+[build]
+builder = "nixpacks"
+buildCommand = "pip install -r requirements.txt && python download_models.py"
+
+[deploy]
+startCommand = "gunicorn vehicle_api.wsgi:application --bind 0.0.0.0:$PORT --timeout 300 --workers 1 --preload"
+restartPolicyType = "on_failure"
