@@ -8,3 +8,4 @@ numpy==1.26.4
 pandas==2.0.3
 gdown==5.1.0
 gunicorn==21.2.0
+huggingface_hub==0.21.0
